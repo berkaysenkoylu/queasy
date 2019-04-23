@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://quiet-beach-23082.herokuapp.com/api'
+  apiUrl: 'https://quiet-beach-23082.herokuapp.com/api'
 };
 
 /*
