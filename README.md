@@ -1,6 +1,4 @@
-Quiz app with MEAN stack (for me only (for now))
-
-Work in progress
+Quiz app with MEAN stack
 
 This site was built using [GitHub Pages](https://berkaysenkoylu.github.io/queasy/).
 
