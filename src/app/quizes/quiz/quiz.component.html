@@ -1,0 +1,177 @@
+<!-- Quiz showcase mode -->
+<div *ngIf="mode === 0">
+    <div fxLayout="row" fxLayoutAlign="center">
+        <h1 class="mat-headline">~ {{ quiz?.name }} ~</h1>
+    </div>
+    
+    <hr>
+
+    <mat-card class="quiz-showcase">
+        <mat-card-header>
+            <mat-card-title>Features</mat-card-title>
+        </mat-card-header>
+        <hr>
+        <mat-card-content>
+            <ul style="list-style: none;">
+                <li class="quiz-description">
+                    <p><b>Description:</b> {{ quiz?.description }}</p>
+                </li>
+                <li>
+                    <p>
+                        <span *ngIf="quiz?.duration <= 1"><b>Duration:</b> {{ quiz?.duration }} minute</span>
+                        <span *ngIf="quiz?.duration > 1"><b>Duration:</b> {{ quiz?.duration }} minutes</span>
+                    </p>
+                </li>
+                <li><p><b>Questions:</b> {{ quiz?.questions.length }}</p></li>
+            </ul>
+
+            <hr>
+
+            <h2 fxLayoutAlign="center">SCORES</h2>
+            <div class="leaderboard" fxLayoutAlign="center">
+                
+                <!-- <table>
+                    <tr>
+                        <th>Username</th>
+                        <th>Score</th>
+                    </tr>
+                    <tr *ngFor="let user of userList">
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.score | number: '1.0-0' }}</td>
+                    </tr>
+                </table>  -->
+
+                <table mat-table [dataSource]="userList" class="mat-elevation-z8">
+                        
+                    <!-- Username Column -->
+                    <ng-container matColumnDef="username">
+                        <th mat-header-cell *matHeaderCellDef> Username </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.username }} </td>
+                    </ng-container>
+                        
+                    <!-- Score Column -->
+                    <ng-container matColumnDef="score">
+                        <th mat-header-cell *matHeaderCellDef> Score </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.score | number: '1.0-0' }} </td>
+                    </ng-container>
+                        
+                        
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+            </div>
+        </mat-card-content>
+
+        <mat-card-actions>
+            <button mat-raised-button (click)="startQuiz()" class="quiz-button">Start</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
+
+<!-- Quiz solving mode -->
+<div *ngIf="mode === 1">
+
+    <h2>
+        Time left: {{ formatTimeLeft() }}
+    </h2>
+
+    <mat-progress-bar mode="determinate" [value]="(questionNumber / quiz.questions.length) * 100"></mat-progress-bar>
+
+    <mat-card class="question-field">
+        <mat-card-header>
+            <mat-card-title>{{ question.question }}</mat-card-title>
+        </mat-card-header>
+
+        <mat-radio-group class="choices-radio-group" [(ngModel)]="chosenChoice" *ngFor="let choice of question.choices">
+            <mat-radio-button class="choice-radio-button" [value]="choice" [disabled]="!canSubmitAnswer">{{ choice.choice }}</mat-radio-button>
+        </mat-radio-group>
+        
+        <mat-card-actions fxLayout="row" fxLayoutAlign="end">
+            <button mat-raised-button (click)="onCheckAnswer()" class="quiz-button" [disabled]="!chosenChoice || !canSubmitAnswer"><mat-icon>done</mat-icon> Select</button>
+        </mat-card-actions>
+    </mat-card>
+
+    <br><br>
+    <!--  <div *ngIf="!canSubmitAnswer" [@fadeIn]="answerFeedbackState"> -->
+    <div [@fadeIn]="answerFeedbackState">
+        <mat-card>
+            <div><b>You chose: {{ chosenChoice?.choice }}</b></div>
+
+            <hr>
+            
+            <div *ngIf="chosenChoice?.isCorrect; else showIncorrect">
+                <div style="color: rgb(50, 160, 50);" fxLayout="row" fxLayoutAlign="start"><mat-icon>check</mat-icon><span class="answer-data"> That's correct!</span></div>
+            </div>
+            <ng-template #showIncorrect>
+                <div style="color: rgb(180, 30, 30);" fxLayout="row" fxLayoutAlign="start"><mat-icon>close</mat-icon><span class="answer-data"> That's incorrect!</span></div>
+            </ng-template>
+        </mat-card>
+    </div>
+    
+</div>
+
+<!-- Quiz is finished -->
+<div *ngIf="mode === 2">
+    <div fxLayout="row" fxLayoutAlign="center">
+        <h1 class="mat-headline">{{ quizFinishedTitle }}</h1>
+    </div>
+    <hr>
+    <div fxLayoutAlign="center">
+        <mat-card fxLayout="column" class="result-card">
+            <mat-card-header fxLayout="row" fxLayoutAlign="center">
+                <mat-card-title class="mat-headline" style="font-size: 25px;">RESULTS</mat-card-title>
+            </mat-card-header>
+            
+            <div>
+                <mat-divider></mat-divider>
+            </div>
+            
+            <div class="spinner-container" fxLayout="row" fxLayoutAlign="center">
+                <div class="spinner-background">
+                    {{ quizScorePercentage | number: '0.0-0' }}%
+                </div>
+                <mat-progress-spinner
+                    mode="determinate"
+                    [value]="quizScorePercentage">
+                </mat-progress-spinner>
+            </div>
+
+            <!-- <div style="margin: 1rem 0 1rem 0;">
+                <div fxLayout="row" fxLayoutAlign="center">
+                    <mat-progress-spinner
+                        mode="determinate"
+                        [value]="quizScorePercentage">
+                    </mat-progress-spinner>
+                </div>
+                <div 
+                    style="font-weight: bold; font-size: 30px;" 
+                    fxLayout="row" 
+                    fxLayoutAlign="center">
+                    {{ quizScorePercentage | number: '0.0-0' }}%
+                </div>
+            </div> -->
+
+            <div style="margin: 0.5rem 0 1rem 0;">
+                <h2 fxLayoutAlign="center">STATS</h2>
+
+                <div>
+                    <mat-divider></mat-divider>
+                </div>
+
+                <div fxLayout="column" fxLayoutAlign="center" style="padding: 1rem 0 1rem 0;">
+                    <div fxLayout="row" fxLayoutAlign="start" class="answer-data">
+                        Correct answers: {{ quizNumberOfCorrectAnswers }} 
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="start" class="answer-data">
+                        Incorrect answers: {{ quiz?.questions.length - quizNumberOfCorrectAnswers }} 
+                    </div>
+                </div>
+            </div>
+            <mat-card-actions fxLayout="row" fxLayoutAlign="end">
+                <a mat-raised-button [routerLink]="['/']" color="warn"><mat-icon>home</mat-icon> <span>Home</span></a>
+                <a mat-raised-button [routerLink]="['/', 'quizzes']" class="quiz-button"><mat-icon>view_list</mat-icon> <span>Quizzes</span></a>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

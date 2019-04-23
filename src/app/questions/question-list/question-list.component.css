@@ -1,0 +1,26 @@
+.spacer {
+    flex: 1 1 auto;
+}
+
+.mat-headline {
+    color: rgb(50, 130, 50);
+    font-weight: bold;
+}
+
+.isCorrect {
+    font-weight: bold;
+    color: rgb(40, 196, 40);
+}
+
+.isNotCorrect {
+    font-weight: bold;
+    color: rgb(180, 25, 25);
+}
+
+.default {
+    font-weight: bold;
+}
+
+mat-expansion-panel {
+    margin-top: 1rem;
+}

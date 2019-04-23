@@ -1,0 +1,136 @@
+<div fxLayout="row" fxLayoutAlign="center">
+    <h1 class="mat-headline">~ Create a new quiz ~</h1>
+</div>
+
+<hr>
+
+<form [formGroup]="form" (submit)="onCreateQuiz()">
+    <mat-form-field>
+        <input 
+            type="text"
+            matInput
+            formControlName="name"
+            placeholder="Quiz name (min 10 characters)"
+            required>
+            <mat-error *ngIf="form.get('name').invalid">Quiz name is required | Invalid name</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <textarea 
+            rows="6"
+            matInput
+            formControlName="description"
+            placeholder="Quiz description"
+            required></textarea>
+            <mat-error *ngIf="form.get('description').invalid">Quiz description is required</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input 
+            matInput 
+            type="number" 
+            placeholder="Quiz duration [min]" 
+            formControlName="duration" 
+            min="1"
+            required>
+    </mat-form-field>
+    <mat-card-actions fxLayout="row" fxLayout.xs="column" class="sub-button-wrapper">
+        <button mat-raised-button type="submit" class="submit-button" [disabled]="quizQuestions.length === 0">
+            <span *ngIf="mode === 'create'">Create</span>
+            <span *ngIf="mode === 'edit'">Edit</span>
+        </button>
+    </mat-card-actions>
+</form>
+
+<div fxLayout="column" fxLayoutAlign="center" class="main-quiz">
+    <div fxLayout="row" fxLayout.md="column" fxLayout.sm="column" fxLayout.xs="column">
+        <mat-card>
+            <mat-card-title fxLayoutAlign="center">Quiz questions</mat-card-title>
+            <hr>
+            <div class="questionContainer">
+                <div *ngIf="quizQuestions.length !== 0; else placeholder">
+                    <div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="5px">
+                        <mat-card *ngFor="let question of quizQuestions" style="width: 90%;">
+                            <mat-card-header>
+                                <mat-panel-title>
+                                    <b *ngIf="question.question.length <= 100; else tripleDots">
+                                        {{ question.question }}
+                                    </b>
+                                    <ng-template #tripleDots>
+                                        <b>{{ question.question | slice:0:100 }}...</b>           
+                                    </ng-template>
+                                </mat-panel-title>
+                                <span class="spacer"></span>
+                                <button mat-button type="button" (click)="onViewQuestion(question.question, question.choices)">View</button>
+                                <button mat-button type="button" (click)="onExchangeQuestion(question.id, false)" class="remove-button"><mat-icon>clear</mat-icon></button>
+                            </mat-card-header>
+                        </mat-card>
+                    </div>
+                </div>
+                <ng-template #placeholder>
+                    <p>No questions added yet!</p>
+                    <!-- <p style="visibility: hidden;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia animi molestiae facilis neque recusandae odit nam minus maiores dignissimos alias? Consectetur a voluptatem saepe omnis possimus sint totam, cum voluptatibus!</p> -->
+                </ng-template>
+            </div>
+        </mat-card>
+        <mat-divider [vertical]="true"></mat-divider>
+        <mat-card>
+            <mat-card-title fxLayoutAlign="center">Available questions</mat-card-title>
+            <hr>
+            <div class="questionContainer">
+                <div *ngIf="availableQuestions.length !== 0; else placeholder">
+                    <div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="5px">
+                        <mat-card *ngFor="let question of availableQuestions" style="width: 90%;">
+                            <mat-card-header>
+                                <mat-panel-title>
+                                    <b *ngIf="question.question.length <= 100; else tripleDots">
+                                        {{ question.question }}
+                                    </b>
+                                    <ng-template #tripleDots>
+                                        <b>{{ question.question | slice:0:100 }}...</b>           
+                                    </ng-template>
+                                </mat-panel-title>
+                                <span class="spacer"></span>
+                                <button mat-button type="button" (click)="onViewQuestion(question.question, question.choices)">View</button>
+                                <button mat-button type="button" class="addButton" (click)="onExchangeQuestion(question.id, true)"><mat-icon>add</mat-icon></button>
+                            </mat-card-header>
+                        </mat-card>
+                    </div>
+                </div>
+                <ng-template #placeholder>
+                    <p style="visibility: hidden;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia animi molestiae facilis neque recusandae odit nam minus maiores dignissimos alias? Consectetur a voluptatem saepe omnis possimus sint totam, cum voluptatibus!</p>
+                </ng-template>
+            </div>
+        </mat-card>
+    </div>
+
+    
+    
+    
+    <div fxLayout="column" fxLayoutAlign="center" *ngIf="isPreviewOn" class="preview-div">
+        <div fxLayout="row" fxLayoutAlign="center">
+            <h1 class="mat-headline">~ Question Preview ~</h1>
+        </div>
+        
+        <mat-card class="previewCard">
+            <h4>
+                {{ previewQuestion.question }}
+            </h4>
+            <hr>
+            <mat-card-content>
+                <ul *ngFor="let choice of previewQuestion.choices">
+                    <div *ngIf="isShowCorrectAnswer; else default">
+                        <li [ngClass]="choice.isCorrect ? 'isCorrect' : 'isNotCorrect'">{{ choice.choice }}</li>
+                    </div>
+                    <ng-template #default>
+                        <li class="default">{{ choice.choice }}</li>
+                    </ng-template>
+                </ul>
+            </mat-card-content>
+            <hr>
+            <mat-card-actions fxLayout="row">
+                <mat-checkbox color="warn" [(ngModel)]="isShowCorrectAnswer">Show Answer</mat-checkbox>
+                <span style="flex: 1 1 auto;"></span>
+                <button mat-raised-button type="button" (click)="closeQuestionPreview()" color="warn">Close</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+.widener {
+    width: 100%;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.centered {
+    display: block;
+    margin: auto;
+    width: 10rem;
+}
+
+.submitButton {
+    background-color: rgb(37, 85, 37);
+    color: azure;
+}
+
+.search-form {
+    width: 90%;
+}
+
+.pressed-true-button {
+    background-color: rgb(37, 85, 37);
+    color: azure;
+}
+
+.default-true-button {
+    height: 75%;
+    background-color:  rgb(200, 20, 20);
+    color: azure;
+}
+
+.mat-headline {
+    color: rgb(50, 130, 50);
+    font-weight: bold;
+}
+
+.delete-button {
+    background: rgb(150, 30, 30);
+    color: azure;
+}

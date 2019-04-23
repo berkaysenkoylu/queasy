@@ -1,0 +1,54 @@
+<mat-toolbar>
+  <span class="brand">
+    <a routerLink="/">QUEASY</a>
+  </span>
+
+  <span [@fadeIn]="welcomeState" class="welcomeUser">
+    welcome!
+  </span>
+
+  <span class="spacer"></span>
+  <ul>
+    <li *ngIf="!isUserAuthenticated">
+      <a mat-button routerLink="/login" routerLinkActive="mat-accent">Login</a>
+    </li>
+    <li *ngIf="!isUserAuthenticated">
+      <a mat-button routerLink="/signup" routerLinkActive="mat-accent">Signup</a>
+    </li>
+    
+    <div *ngIf="isUserAuthenticated">
+      <button mat-button [matMenuTriggerFor]="quizMenu">Quizes <mat-icon>expand_more</mat-icon></button>
+      <mat-menu #quizMenu="matMenu">
+        <button mat-menu-item routerLink="/new-quiz">New quiz</button>
+        <button mat-menu-item routerLink="/quizzes">Quizes</button>
+      </mat-menu>
+  
+      <button mat-button [matMenuTriggerFor]="questionMenu">Questions <mat-icon>expand_more</mat-icon></button>
+      <mat-menu #questionMenu="matMenu">
+        <button mat-menu-item routerLink="/new-question">New question</button>
+        <button mat-menu-item routerLink="/questions">Questions</button>
+      </mat-menu>
+    </div>
+
+    <li *ngIf="isUserAuthenticated">
+      <button mat-button (click)="onLogout()">Logout</button>
+    </li>
+    
+  </ul>
+</mat-toolbar>
+
+
+<!-- <mat-toolbar>
+  <span class="brand">
+    <a routerLink="/">QUIZ'O'MATIC</a>
+  </span>
+  <span class="spacer"></span>
+  <ul>
+      <li>
+          <a mat-button routerLink="/questions" routerLinkActive="mat-accent">Questions</a>
+      </li>
+      <li>
+        <a mat-button routerLink="/new-question" routerLinkActive="mat-accent">New question</a>
+      </li>
+  </ul>
+</mat-toolbar> -->

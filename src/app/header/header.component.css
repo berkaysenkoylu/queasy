@@ -1,0 +1,29 @@
+.brand {
+    font-family: 'Devonshire', cursive;
+    font-size: 35px;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(37, 82, 37);
+}
+
+ul {
+    list-style: none;
+    font-size: 20px;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.welcomeUser {
+    margin: 0 0 0 2rem;
+    font-family: 'Devonshire', cursive;
+    font-size: 30px;
+    font-weight: bold;
+    color: rgb(224, 17, 17);
+}

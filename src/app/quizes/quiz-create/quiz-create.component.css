@@ -1,0 +1,77 @@
+.main-quiz {
+    margin-top: 1rem;
+}
+
+mat-form-field,
+input {
+    width: 100%;
+}
+
+.questionContainer {
+    overflow-y: scroll;
+    max-width: 600px;
+    width: 600px;
+    height: 400px;
+}
+
+mat-card {
+    margin: auto;
+}
+
+mat-divider {
+    margin: 1rem;
+}
+
+.mat-headline {
+    font-weight: bold;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.addButton {
+    font-size: 20pt;
+    color: white;
+    background-color: rgb(30, 180, 30);
+    margin: 0 0.5rem 0 0.5rem;
+}
+
+.previewCard {
+    width: 750px;
+}
+
+.preview-div {
+    margin: 1rem;
+}
+
+.isCorrect {
+    font-weight: bold;
+    color: rgb(40, 196, 40);
+}
+
+.isNotCorrect {
+    font-weight: bold;
+    color: rgb(180, 25, 25);
+}
+
+.default {
+    font-weight: bold;
+}
+
+.sub-button-wrapper {
+    display: block;
+    margin: auto;
+}
+
+.submit-button {
+    color: azure;
+    background-color: forestgreen;
+    margin-top: 1rem;
+    width: 5rem;
+}
+
+.remove-button {
+    color: azure;
+    background-color: firebrick;
+}

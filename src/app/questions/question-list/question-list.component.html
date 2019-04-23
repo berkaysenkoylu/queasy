@@ -1,0 +1,37 @@
+<div fxLayout="row" fxLayoutAlign="center">
+    <h1 class="mat-headline">~ Questions ~</h1>
+</div>
+
+<mat-card>
+    <mat-card-header>
+        <mat-checkbox color="warn" [(ngModel)]="isShowCorrectAnswers">Show Answers</mat-checkbox>
+    </mat-card-header>
+    <hr>
+
+    <mat-expansion-panel *ngFor="let question of questions">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <b>{{ question.question }}</b> 
+            </mat-panel-title>
+            <span class="spacer"></span>
+        </mat-expansion-panel-header>
+        
+        <div *ngFor="let choice of question.choices">
+            <ul>
+                <div *ngIf="isShowCorrectAnswers; else default">
+                    <li [ngClass]="choice.isCorrect ? 'isCorrect' : 'isNotCorrect'">{{ choice.choice }}</li>
+                </div>
+                <ng-template #default>
+                    <li class="default">{{ choice.choice }}</li>
+                </ng-template>
+            </ul>
+        </div>
+
+        <mat-action-row *ngIf="isUserAuthenticated && userId === question.author">
+            <a mat-button color="primary" [routerLink]="[question.id, 'edit']">Edit</a>
+            <button mat-button color="warn" (click)="onDelete(question.id)">Delete</button>
+        </mat-action-row>
+    </mat-expansion-panel>
+</mat-card>
+
+<!-- <li [ngClass]="choice.isCorrect && isShowCorrectAnswers ? 'isCorrect' : 'isNotCorrect'">{{ choice.choice }}</li> -->

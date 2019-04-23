@@ -1,0 +1,109 @@
+<div fxLayout="row" fxLayoutAlign="center">
+    <h1 class="mat-headline">~ Create a New Question ~</h1>
+</div>
+
+<mat-card>
+    <form (submit)="onSubmit()" [formGroup]="form">
+        <mat-form-field MatFormFieldControl class="widener">
+            <div fxLayout="row" fxLayoutAlign="center">
+                <textarea 
+                    matInput 
+                    rows="6"
+                    formControlName="question"
+                    placeholder="Question"
+                    required
+                ></textarea>
+            </div>
+        </mat-form-field>
+        <br>
+        <div fxLayout="row" fxLayoutAlign="center">
+            <button type="button" mat-raised-button (click)="onAddChoice()">Add another choice</button> 
+        </div>
+        <br>
+        <div formArrayName="choices">
+            <div *ngFor="let choice of form.get('choices')['controls']; let i=index" [formGroupName]="i">
+                <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
+                    <mat-form-field style="width: 80%;">
+                        <input 
+                            type="text"
+                            matInput
+                            formControlName="choice"
+                            placeholder="choice"
+                            fxFlex="80%"
+                            class="search-form"
+                        >
+                    </mat-form-field>
+                    <div>
+                        <button 
+                            mat-button 
+                            type="button" 
+                            (click)="onAnswerToggleButtonClicked(i)" 
+                            #trueButton 
+                            [ngClass]="{'pressed-true-button': getIsCorrect(i)}"
+                            >true</button>
+                    </div>
+                    <div>
+                        <button 
+                            mat-button 
+                            type="button" 
+                            (click)="onDeleteOption(i)"
+                            class="delete-button"
+                            [disabled]="i < 4"
+                            >X</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
+            <button mat-raised-button class="submitButton" [disabled]="!isCorrectAnswerSelected">Submit</button>
+            <button mat-raised-button type="button" color="accent" (click)="onClearForm()">Reset</button>
+            <span fxFlex></span>
+            <button mat-raised-button type="button" color="warn" (click)="onCancelForm()">Cancel</button>
+        </div>
+    </form>
+</mat-card>   
+
+
+
+<!-- <mat-card>
+    <form (submit)="onSubmit()" [formGroup]="form">
+        <mat-form-field MatFormFieldControl class="widener">
+            <textarea 
+                matInput 
+                rows="6"
+                formControlName="question"
+                placeholder="Question"
+                required
+            ></textarea>
+            <mat-error *ngIf="form.get('question').invalid">Please enter a valid question</mat-error>
+        </mat-form-field>
+        <mat-card-actions class="centered">
+            <button type="button" mat-raised-button (click)="onAddChoice()">Add another choice</button> 
+        </mat-card-actions>
+        <div formArrayName="choices">
+            <div *ngFor="let choice of form.get('choices').controls; let i=index" [formGroupName]="i">
+                <mat-form-field MatFormFieldControl>
+                    <div fxLayout="row" fxLayoutAlign="center">
+                        <input 
+                            type="text"
+                            matInput
+                            formControlName="choice"
+                            placeholder="choice"
+                            fxFlex="80%"
+                            class="search-form"
+                        >
+                        <button mat-button type="button" (click)="onAnswerToggleButtonClicked(i)" fxFlex="20%">True</button>
+                    </div>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <mat-action-row>
+            <button mat-raised-button class="submitButton">Submit</button>
+            <button mat-raised-button color="accent">Reset</button>
+            <span class="spacer"></span>
+            <button mat-raised-button color="warn">Cancel</button>
+        </mat-action-row>
+    </form>  
+</mat-card> -->

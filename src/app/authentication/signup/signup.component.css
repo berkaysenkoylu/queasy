@@ -1,0 +1,8 @@
+mat-form-field {
+    width: 100%;
+}
+
+.submit-button {
+    background-color: rgb(40, 140, 40);
+    color: azure;
+}

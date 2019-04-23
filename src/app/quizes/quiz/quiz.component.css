@@ -1,0 +1,119 @@
+:host {
+    display: block;
+    margin-top: 1rem;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.mat-headline {
+    font-weight: bold;
+}
+
+.quiz-showcase {
+    color: rgb(39, 129, 39);
+}
+
+.quiz-button {
+    color: azure;
+    background-color: rgb(39, 129, 39);
+}
+
+.quiz-description {
+    height: 100px;
+}
+
+mat-card hr {
+    border: 0.5px solid green;
+}
+
+.leaderboard {
+    padding-top: 1rem;
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.vertically-align {
+    margin: 0;
+    position: absolute;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.question-field {
+    margin-top: 1rem;
+}
+
+::ng-deep .mat-progress-bar-fill::after {
+    background-color: green;
+}
+
+::ng-deep .mat-progress-bar-buffer {
+    background: #E4E8EB;
+}
+
+/* Question */
+.choices-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+}
+
+.choice-radio-button {
+    margin: 5px;
+}
+
+::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle, .mat-radio-outer-circle {
+    border-color: green;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle{
+    background-color: green;
+}
+
+.result-card {
+    margin-top: 1rem;
+    width: 600px;
+}
+
+.answer-data {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+table {
+    width: 100%;
+    margin: 0 1rem 0 1rem;
+    border-collapse: collapse;
+}
+
+/* table, th, td {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+} */
+
+th {
+    font-weight: bold;
+    color: black;
+    text-align: left;
+}
+
+.spinner-container {
+    margin: 1rem 0 1rem 0;
+    position: relative;
+}
+
+.spinner-background {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    overflow: hidden;
+    border-color: rgba(103, 58, 183, 0.12);
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 10px;
+    font-weight: bold;
+    font-size: 20pt;
+}

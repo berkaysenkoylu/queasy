@@ -1,0 +1,58 @@
+<h2 align="center" center="mat-header">~ Login ~</h2>
+
+<mat-card>
+    <form (submit)="onSubmit(loginForm)" #loginForm="ngForm">
+        <mat-form-field>
+            <input 
+                matInput 
+                type="email"
+                name="email"
+                ngModel
+                placeholder="E-mail"
+                #emailInput="ngModel"
+                required
+                email>
+            <mat-error *ngIf="emailInput.invalid">Please enter a valid email</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input 
+                matInput 
+                type="password"
+                name="password"
+                ngModel
+                placeholder="Password"
+                #passwordInput="ngModel"
+                required>
+            <mat-error *ngIf="passwordInput.invalid">Please enter a valid email</mat-error>
+        </mat-form-field>
+        <button 
+            mat-raised-button
+            type="submit"
+            class="submit-button" [disabled]="!loginForm.valid">Login</button>
+    </form>
+</mat-card>
+<br>
+<hr>
+<br>
+<div>
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    You can either signup or use demo user
+                </mat-panel-title>
+                <mat-panel-description>
+                    CLICK ME!
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-divider></mat-divider>
+            <p class="mat-body-1">
+                <b>E-mail:</b> demo@demo.com
+            </p>
+            <p class="mat-body-1">
+                <b>Password:</b> 123456
+            </p>
+        </mat-expansion-panel>         
+    </mat-accordion>
+</div> 

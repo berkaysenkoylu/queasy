@@ -1,0 +1,38 @@
+<div fxLayout="row" fxLayoutAlign="center">
+    <h1 class="mat-headline">~ Quizzes ~</h1>
+</div>
+
+<hr>
+
+<div fxLayout="row" fxLayoutAlign="center" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+</div>
+
+<div *ngIf="quizzes.length > 0; else noQuiz">
+    <mat-expansion-panel *ngFor="let quiz of quizzes" class="inv-quiz">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <b>{{ quiz.name }}</b> 
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        
+        <mat-panel-description>
+            {{ quiz.description }}
+        </mat-panel-description>
+
+        <mat-action-row fxLayout="row" fxLayoutGap="10px">
+            <a mat-raised-button type="button" class="start-button" [routerLink]="[quiz.id]">Open</a>
+            <span class="spacer"></span>
+            <span fxLayoutGap="10px" *ngIf="isUserAuthenticated && userId === quiz.author">
+                <a mat-raised-button color="primary" [routerLink]="[quiz.id, 'edit']">Edit</a>
+                <button mat-raised-button color="warn" (click)="onDelete(quiz.id)">Delete</button>
+            </span>
+        </mat-action-row>
+    </mat-expansion-panel>
+</div>
+
+<ng-template #noQuiz>
+    <span fxLayout="row" fxLayoutAlign="center">
+        No quizzes have been added yet
+    </span> 
+</ng-template>
