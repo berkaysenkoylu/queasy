@@ -1,4 +1,4 @@
-<h1>Quiz app with MEAN stack</h1>
+<h1 align="center">Quiz app with MEAN stack</h1>
 
 This app was built using MEAN Stack: [Queasy](https://berkaysenkoylu.github.io/queasy/)
 
