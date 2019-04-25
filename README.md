@@ -1,6 +1,6 @@
 <h1>Quiz app with MEAN stack</h1>
 
-This site was built using MEAN Stack: [Queasy](https://berkaysenkoylu.github.io/queasy/){:target="_blank"}
+This site was built using MEAN Stack: [Queasy]{:target="_blank"}(https://berkaysenkoylu.github.io/queasy/)
 
 - Front-end -> Github pages (Angular, and Angular Material)
 - Back-end -> Heroku (MongoDB, Express.js and Node.js)
